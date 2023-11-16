@@ -9,7 +9,7 @@ def parse_arguments():
     parser = argparse.ArgumentParser(description="Process arguments.")
 
     # All arguments
-    parser.add_argument('-i', type=str, requried=True, help='The input file path')
+    parser.add_argument('-i', type=str, required=True, help='The input file path')
     parser.add_argument('-s', type=str, required=True, help='The seed string')
     parser.add_argument('-o', type=str, required=True, help='The output file path')
     parser.add_argument('-p', type=int, required=False, help='The number of processes')
