@@ -23,15 +23,15 @@ def parse_arguments():
 
     # Check if seed string only has a, b, and c || returns match
     if not re.match("^[abc]+$", args.s):
-        raise argparse.ArgumentTypeError(f"Seed string {args.s} is invalid, must only contain a, b, or c")
+        raise argparse.ArgumentTypeError("Seed string {args.s} is invalid, must only contain a, b, or c")
 
     # Checking if the output file path exists || returns true if directory exists
     if not os.path.isdir(os.path.dirname(args.o)):
-        raise argparse.ArgumentTypeError(f"Output directory {os.path.dirname(args.o)} does not exist")
+        raise argparse.ArgumentTypeError("Output directory {os.path.dirname(args.o)} does not exist")
 
     # Checking if number of processes is greater than 0
     if args.p <= 0:
-        raise argparse.ArgumentTypeError(f"Number of processes {args.p} is invalid, must be greater than 0")
+        raise argparse.ArgumentTypeError("Number of processes {args.p} is invalid, must be greater than 0")
 
 
 def print_hi(name):
