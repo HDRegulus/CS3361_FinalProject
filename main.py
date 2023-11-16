@@ -19,7 +19,7 @@ def parse_arguments():
 
     # Check if the input file exits || returns true if file exists
     if not os.path.isfile(args.i):
-        raise argparse.ArgumentTypeError(f"Input file {args.i} does not exist")
+        raise argparse.ArgumentTypeError("Input file {args.i} does not exist")
 
     # Check if seed string only has a, b, and c || returns match
     if not re.match("^[abc]+$", args.s):
