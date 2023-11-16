@@ -3,6 +3,7 @@ import argparse
 import os
 import re
 
+
 # Parse argument to check validity
 def parse_arguments():
     parser = argparse.ArgumentParser(description="Process arguments.")
@@ -32,6 +33,7 @@ def parse_arguments():
     if args.p <= 0:
         raise argparse.ArgumentTypeError(f"Number of processes {args.p} is invalid, must be greater than 0")
 
+
 def print_hi(name):
     # Use a breakpoint in the code line below to debug your script.
     print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
@@ -40,5 +42,10 @@ def print_hi(name):
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     print_hi('PyCharm')
+    args = parse_arguments()
+    print('Input file:', args.i)
+    print('Seed string:', args.s)
+    print('Output file:', args.o)
+    print('Number of Processes:', args.p)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+# FOR LATER: PLEASE USE .map FOR SOME SHIT LATER
