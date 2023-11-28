@@ -178,6 +178,8 @@ def encryptLetter(letter: str, rotationValue: str) -> str:
     return rotationString[(currentPosition - rotationValue) % 95]
 
 def main():
+    print("Project :: R11607071")
+
     # Parsing the arguments
     args = parse_arguments()
 
@@ -199,7 +201,7 @@ def main():
     for step in range(100):
         seeded_matrix = update_matrix(seeded_matrix)
 
-    print((good_time() - start_time) / 1000000.0)
+    # print((good_time() - start_time) / 1000000.0)
 
     decrypted_string = ""
 
