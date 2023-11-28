@@ -116,9 +116,10 @@ def get_cell_neighbors(given_seeded_matrix: StringMatrix, given_row: int, given_
 
     for row in row_range:
         for col in column_range:
-            # Exclude the given cell from neighbors list
-            if (row, col) != (given_row, given_column):
-                result += ord(given_seeded_matrix[row][col]) - a
+            result += ord(given_seeded_matrix[row][col]) - a
+
+    # Remove the value of the cell itself
+    result -= ord(given_seeded_matrix[given_row][given_column])
 
     return result
 
