@@ -38,7 +38,7 @@ def parse_arguments():
         raise argparse.ArgumentTypeError(f"Output directory {os.path.dirname(args.output)} does not exist")
 
     # Checking if number of processes is greater than 0
-    if args.processes <= 0:
+    if args.processes is not None and args.processes <= 0:
         raise argparse.ArgumentTypeError(f"Process number {args.processes} is invalid, must be greater than 0")
 
     return args
