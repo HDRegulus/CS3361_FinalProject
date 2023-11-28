@@ -194,19 +194,11 @@ def main():
 
     # Filling the matrix with the seed string
     seeded_matrix = seed_matrix(args.seed, unseeded_matrix, input_string_length)
-    for row in seeded_matrix:
-        print(row)
-    test_neighbor = get_cell_neighbors(seeded_matrix, 0, 0)
-    print("Current cell neighbors:", test_neighbor)
     # Updating the seeded matrix 100 times
     start_time = good_time()
 
     for step in range(100):
         seeded_matrix = update_matrix(seeded_matrix)
-        print("Step:", step)
-        for row in seeded_matrix:
-            print(row)
-        print("\n")
 
     # print((good_time() - start_time) / 1000000.0)
 
