@@ -102,14 +102,14 @@ def get_cell_neighbors(given_seeded_matrix: StringMatrix, given_row: int, given_
     # Range starting from no less than 0, not exceeding the matrix, and inclusive of what surrounds row
     row_range = range(
         max(0, given_row - 1),
-        min(len(given_seeded_matrix), given_row + 1)
+        min(len(given_seeded_matrix), given_row + 2)
     )
 
     # Range starting from now less that 0, not exceeding how many columns are in given matrix
     # Also inclusive of what surrounds column
     column_range = range(
         max(0, given_column - 1),
-        min(len(given_seeded_matrix[0]), given_column + 1)
+        min(len(given_seeded_matrix[0]), given_column + 2)
     )
 
     a = ord('a')
