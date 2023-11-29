@@ -177,6 +177,7 @@ def encryptLetter(letter: str, rotationValue: str) -> str:
 
     return rotationString[(currentPosition - rotationValue) % 95]
 
+
 def main():
     print("Project :: R11607071")
 
@@ -195,7 +196,6 @@ def main():
     # Filling the matrix with the seed string
     seeded_matrix = seed_matrix(args.seed, unseeded_matrix, input_string_length)
     # Updating the seeded matrix 100 times
-    start_time = good_time()
 
     for step in range(100):
         seeded_matrix = update_matrix(seeded_matrix)
