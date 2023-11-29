@@ -7,9 +7,13 @@ from pathlib import Path
 from typing import NewType
 from time import perf_counter_ns as good_time
 from copy import deepcopy
+from multiprocessing import Pool
+
+from itertools import starmap
 
 # Row-Major 2D Matrix of Strings
 StringMatrix = NewType('StringMatrix', list[list[str]])
+MatrixRow = NewType('MatrixRow', list[str])
 
 
 def parse_arguments():
@@ -160,6 +164,54 @@ def get_column_sum(encrypted_matrix: StringMatrix, column_number: int) -> int:
     return current_column_sum
 
 
+def process_row(matrix: StringMatrix, row_index: int) -> list[int]:
+    """Get the current row to update along with neighboring rows"""
+
+    # to_update_rows = []
+    #
+    # if row_index > 0:
+    #     to_update_rows.append(encrypted_matrix[row_index - 1])
+    #
+    # to_update_rows.append(encrypted_matrix[row_index])
+    #
+    # if row_index < len(encrypted_matrix):
+    #     to_update_rows.append(encrypted_matrix[row_index + 1])
+
+    # TODO: Presupposes that we're using list[list[int]] for our seed matrix instead.
+    #       We should make sure to actually change this in the rest of the code,
+    #       because converting back and forth between str and int is expensive and
+    #       pointless. Once the seed has been inserted in the matrix, the string
+    #       value of the matrix cells is never used again.
+    # TODO: Speaking of which, everything should be migrated to numeric arrays
+    #       because they are orders of magnitude faster:
+    #       https://docs.python.org/3/library/array.html
+
+    # array(row * col) # Fast as fuck, indexed as [(row * row_len) + col]
+    # list[array(row) * col] # Slow as fuck, indexed as [row][col]
+
+    return [
+        calculate_new_cell_value(
+            cell_value,
+            get_cell_neighbors(matrix, row_index, col_index)
+        )
+        for col_index, cell_value
+        in enumerate(matrix[row_index])
+    ]
+
+
+def calculate_new_cell_value(current_value: int, sum_of_neighbors: int) -> int:
+    if is_prime(sum_of_neighbors):
+        return current_value
+
+    a = ord('a')
+
+    offset = sum_of_neighbors % 2 + 1
+    # return (current_value + offset) % 3
+
+    new_codepoint = (ord(current_value) - a + offset) % 3
+    return chr(new_codepoint + a)
+
+
 def decryptLetter(letter: str, rotationValue: str) -> str:
     """Given decrypt function for final project"""
 
@@ -197,10 +249,21 @@ def main():
     seeded_matrix = seed_matrix(args.seed, unseeded_matrix, input_string_length)
     # Updating the seeded matrix 100 times
 
-    for step in range(100):
-        seeded_matrix = update_matrix(seeded_matrix)
+    # Multiprocessing
+    with Pool(args.processes) as p:
+        # start_time = good_time()
 
-    # print((good_time() - start_time) / 1000000.0)
+        for step in range(100):
+            seeded_matrix = list(p.starmap(
+                process_row,
+                [(seeded_matrix, row) for row in range(len(seeded_matrix))]
+            ))
+
+        # print((good_time() - start_time) / 1000000.0)
+
+    # Serially Ran
+    # for step in range(100):
+    #    seeded_matrix = update_matrix(seeded_matrix, args.processes)
 
     decrypted_string = ""
 
@@ -222,4 +285,6 @@ if __name__ == '__main__':
     main()
 
 
-# FOR LATER: PLEASE USE .map FOR SOME SHIT LATER
+# split
+# define
+# complete
