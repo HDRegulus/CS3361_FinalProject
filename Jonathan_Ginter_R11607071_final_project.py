@@ -97,7 +97,6 @@ def is_prime(n: int) -> bool:
     # return True
 
 
-# TODO: Change this to `get_sum_of_neighbors`.
 def get_cell_neighbors(given_seeded_matrix: StringMatrix, given_row: int, given_column: int) -> list[str]:
     """Getting the neighbors of each cell"""
 
@@ -130,7 +129,6 @@ def get_cell_neighbors(given_seeded_matrix: StringMatrix, given_row: int, given_
 
 def update_matrix(seeded_matrix: StringMatrix) -> StringMatrix:
     """Updating the matrix with the seeded matrix"""
-    # TODO: Make this docstring explain anything about the actual behavior.
 
     # Creates a copy of each row in the list to then be changed by seeded
     seeded_matrix_copy = deepcopy(seeded_matrix)
@@ -185,9 +183,6 @@ def process_row(matrix: StringMatrix, row_index: int) -> list[int]:
     # TODO: Speaking of which, everything should be migrated to numeric arrays
     #       because they are orders of magnitude faster:
     #       https://docs.python.org/3/library/array.html
-
-    # array(row * col) # Fast as fuck, indexed as [(row * row_len) + col]
-    # list[array(row) * col] # Slow as fuck, indexed as [row][col]
 
     return [
         calculate_new_cell_value(
